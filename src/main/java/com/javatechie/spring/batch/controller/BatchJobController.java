@@ -12,9 +12,7 @@ import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,20 +22,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javatechie.spring.batch.entity.Customer;
 import com.javatechie.spring.batch.repository.CustomerRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 public class BatchJobController
 {
 	public static final String TEMP_STORAGE_PATH = "/Users/javatechie/Desktop/temp/";
-	@Autowired
-	private JobLauncher jobLauncher;
 
-	@Autowired
-	private Job job;
-
-	@Autowired
-	private CustomerRepository repository;
-	@Autowired
-	private JobRepository jobRepository;
+	private final JobLauncher jobLauncher;
+	private final Job job;
+	private final CustomerRepository repository;
 
 	private final String TEMP_STORAGE = "/Users/javatechie/Desktop/batch-files/";
 

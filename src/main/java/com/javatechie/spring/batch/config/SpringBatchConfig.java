@@ -16,7 +16,6 @@ import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,25 +28,17 @@ import com.javatechie.spring.batch.entity.Customer;
 import com.javatechie.spring.batch.listener.StepSkipListener;
 import com.javatechie.spring.batch.repository.CustomerRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
+@RequiredArgsConstructor
 public class SpringBatchConfig
 {
-
-	/*@Autowired
-	private JobBuilder jobBuilderFactory;
-	@Autowired
-	private StepBuilder stepBuilderFactory;*/
-
-	@Autowired
-	private JobRepository jobRepository;
-
-	@Autowired
-	private PlatformTransactionManager platformTransactionManager;
-
-	@Autowired
-	private CustomerRepository customerRepository;
-	@Autowired
-	private CustomerItemWriter customerItemWriter;
+	private final JobRepository jobRepository;
+	private final PlatformTransactionManager platformTransactionManager;
+	private final CustomerRepository customerRepository;
+	private final CustomerProcessor customerProcessor;
+	private final CustomerItemWriter customerItemWriter;
 
 	@Bean
 	@StepScope
@@ -81,12 +72,6 @@ public class SpringBatchConfig
 	}
 
 	@Bean
-	CustomerProcessor processor()
-	{
-		return new CustomerProcessor();
-	}
-
-	@Bean
 	RepositoryItemWriter<Customer> writer()
 	{
 		RepositoryItemWriter<Customer> writer = new RepositoryItemWriter<>();
@@ -96,25 +81,25 @@ public class SpringBatchConfig
 	}
 
 	@Bean
-	Step step1(FlatFileItemReader<Customer> itemReader)
+	Step step1(FlatFileItemReader<Customer> itemReader, TaskExecutor taskExecutor)
 	{
 		return new StepBuilder("slaveStep", jobRepository)
 				.<Customer, Customer>chunk(10, platformTransactionManager)
 				.reader(itemReader)
-				.processor(processor())
+				.processor(customerProcessor)
 				.writer(customerItemWriter)
 				.faultTolerant()
 				.listener(skipListener())
 				.skipPolicy(skipPolicy())
-				.taskExecutor(taskExecutor())
+				.taskExecutor(taskExecutor)
 				.build();
 	}
 
 	@Bean
-	Job runJob(FlatFileItemReader<Customer> itemReader)
+	Job runJob(FlatFileItemReader<Customer> itemReader, TaskExecutor taskExecutor)
 	{
 		return new JobBuilder("importCustomer", jobRepository)
-				.flow(step1(itemReader))
+				.flow(step1(itemReader, taskExecutor))
 				.end()
 				.build();
 	}
@@ -126,7 +111,7 @@ public class SpringBatchConfig
 	}
 
 	@Bean
-	SkipListener skipListener()
+	SkipListener<?, ?> skipListener()
 	{
 		return new StepSkipListener();
 	}
