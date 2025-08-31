@@ -1,4 +1,4 @@
-package com.javatechie.spring.batch.controller;
+package com.ad.spring.batch.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.javatechie.spring.batch.entity.Customer;
-import com.javatechie.spring.batch.repository.CustomerRepository;
+import com.ad.spring.batch.entity.Customer;
+import com.ad.spring.batch.repository.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
 

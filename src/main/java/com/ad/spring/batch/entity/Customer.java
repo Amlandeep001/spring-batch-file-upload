@@ -1,4 +1,4 @@
-package com.javatechie.spring.batch.entity;
+package com.ad.spring.batch.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

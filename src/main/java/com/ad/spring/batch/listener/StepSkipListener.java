@@ -1,9 +1,9 @@
-package com.javatechie.spring.batch.listener;
+package com.ad.spring.batch.listener;
 
 import org.springframework.batch.core.SkipListener;
 
+import com.ad.spring.batch.entity.Customer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javatechie.spring.batch.entity.Customer;
 
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;

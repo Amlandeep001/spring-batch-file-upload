@@ -1,4 +1,4 @@
-package com.javatechie.spring.batch.config;
+package com.ad.spring.batch.config;
 
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;

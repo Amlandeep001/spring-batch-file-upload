@@ -1,4 +1,4 @@
-package com.javatechie.spring.batch.config;
+package com.ad.spring.batch.config;
 
 import java.io.File;
 
@@ -24,9 +24,9 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.javatechie.spring.batch.entity.Customer;
-import com.javatechie.spring.batch.listener.StepSkipListener;
-import com.javatechie.spring.batch.repository.CustomerRepository;
+import com.ad.spring.batch.entity.Customer;
+import com.ad.spring.batch.listener.StepSkipListener;
+import com.ad.spring.batch.repository.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,12 +1,12 @@
-package com.javatechie.spring.batch.config;
+package com.ad.spring.batch.config;
 
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.javatechie.spring.batch.entity.Customer;
-import com.javatechie.spring.batch.repository.CustomerRepository;
+import com.ad.spring.batch.entity.Customer;
+import com.ad.spring.batch.repository.CustomerRepository;
 
 @Component
 public class CustomerItemWriter implements ItemWriter<Customer>
